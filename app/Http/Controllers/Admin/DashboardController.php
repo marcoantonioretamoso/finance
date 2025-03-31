@@ -45,9 +45,10 @@ class DashboardController extends Controller
         $cuentaId = auth()->user()->selected_account; // Obtiene la cuenta seleccionada del usuario
     
         return DB::table('expenses')
-            ->when($status, function($query) use ($status) {
-                return $query->where('status', $status);
-            })
+            // ->when($status, function($query) use ($status) {
+            //     return $query->where('status', $status);
+            // })
+            ->where('status',0)
             ->where('account_id', $cuentaId) // Filtra por la cuenta del usuario
             ->sum('amount');
     }
@@ -56,9 +57,10 @@ class DashboardController extends Controller
         $cuentaId = auth()->user()->selected_account; // Obtiene la cuenta seleccionada del usuario
     
         return DB::table('loans')
-            ->when($status, function($query) use ($status) {
-                return $query->where('status', $status);
-            })
+            // ->when($status, function($query) use ($status) {
+            //     return $query->where('status', $status);
+            // })
+            ->where('status',0)
             ->where('account_id', $cuentaId) // Filtra por la cuenta del usuario
             ->sum("Balance");
     }
@@ -66,9 +68,10 @@ class DashboardController extends Controller
     {
         $cuentaId = auth()->user()->selected_account;
         return DB::table('incomes')
-            ->when($status, function($query) use ($status) {
-                return $query->where('status', $status);
-            })
+            // ->when($status, function($query) use ($status) {
+            //     return $query->where('status', $status);
+            // })
+            ->where('status',0)
             ->where('account_id', $cuentaId)
             ->sum('amount');
     }
