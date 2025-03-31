@@ -62,7 +62,7 @@ class DashboardController extends Controller
             ->where('account_id', $cuentaId) // Filtra por la cuenta del usuario
             ->sum("Balance");
     }
-    public function montoIngresoTotal($status = 'activo')
+    public function montoIngresoTotal($status = 0)
     {
         $cuentaId = auth()->user()->selected_account;
         return DB::table('incomes')
