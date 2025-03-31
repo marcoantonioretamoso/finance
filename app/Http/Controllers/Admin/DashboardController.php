@@ -72,42 +72,80 @@ class DashboardController extends Controller
             ->where('account_id', $cuentaId)
             ->sum('amount');
     }
-    public static function montoIngresoActual()
-    {
-        $mesActual = date('n'); // Obtiene el número del mes actual (1-12)
-        $anioActual = date('Y'); // Obtiene el año actual
+    // public static function montoIngresoActual()
+    // {
+    //     $mesActual = date('n'); // Obtiene el número del mes actual (1-12)
+    //     $anioActual = date('Y'); // Obtiene el año actual
 
-        return DB::table('incomes') // Asumo que tu tabla se llama 'ingresos'
-            ->whereMonth('created_at', $mesActual) // Filtra por mes actual
-            ->whereYear('created_at', $anioActual) // Filtra por año actual
+    //     return DB::table('incomes') // Asumo que tu tabla se llama 'ingresos'
+    //         ->whereMonth('created_at', $mesActual) // Filtra por mes actual
+    //         ->whereYear('created_at', $anioActual) // Filtra por año actual
+    //         ->where('status', 0)
+    //         ->where('account_id', auth()->user()->selected_account)
+    //         ->sum('amount'); // Asumo que el campo se llama 'monto'
+    // }
+
+    // public static function montoEgresoActual()
+    // {
+    //     $mesActual = date('n'); // Obtiene el número del mes actual (1-12)
+    //     $anioActual = date('Y'); // Obtiene el año actual
+
+    //     return DB::table('expenses') // Asumo que tu tabla se llama 'egresos'
+    //         ->whereMonth('created_at', $mesActual) // Filtra por mes actual
+    //         ->whereYear('created_at', $anioActual) // Filtra por año actual
+    //         ->where('status', 0)
+    //         ->where('account_id', auth()->user()->selected_account)
+    //         ->sum('amount'); // Asumo que el campo se llama 'monto'
+    // }
+    // public static function montoPrestamoActual()
+    // {
+    //     $mesActual = date('n'); // Obtiene el número del mes actual (1-12)
+    //     $anioActual = date('Y'); // Obtiene el año actual
+
+    //     return DB::table('loans') // Asumo que tu tabla se llama 'egresos'
+    //         ->whereMonth('created_at', $mesActual) // Filtra por mes actual
+    //         ->whereYear('created_at', $anioActual) // Filtra por año actual
+    //         ->where('status', 0)
+    //         ->where('account_id', auth()->user()->selected_account)
+    //         ->sum('Balance'); // Asumo que el campo se llama 'monto'
+    // }
+    public function montoIngresoActual()
+    {
+        $mesActual = date('n'); // Mes actual
+        $anioActual = date('Y'); // Año actual
+
+        return DB::table('incomes')
+            ->whereRaw('EXTRACT(MONTH FROM created_at) = ?', [$mesActual])
+            ->whereRaw('EXTRACT(YEAR FROM created_at) = ?', [$anioActual])
             ->where('status', 0)
             ->where('account_id', auth()->user()->selected_account)
-            ->sum('amount'); // Asumo que el campo se llama 'monto'
+            ->sum('amount');
     }
 
-    public static function montoEgresoActual()
+    public function montoEgresoActual()
     {
-        $mesActual = date('n'); // Obtiene el número del mes actual (1-12)
-        $anioActual = date('Y'); // Obtiene el año actual
+        $mesActual = date('n'); // Mes actual
+        $anioActual = date('Y'); // Año actual
 
-        return DB::table('expenses') // Asumo que tu tabla se llama 'egresos'
-            ->whereMonth('created_at', $mesActual) // Filtra por mes actual
-            ->whereYear('created_at', $anioActual) // Filtra por año actual
+        return DB::table('expenses')
+            ->whereRaw('EXTRACT(MONTH FROM created_at) = ?', [$mesActual])
+            ->whereRaw('EXTRACT(YEAR FROM created_at) = ?', [$anioActual])
             ->where('status', 0)
             ->where('account_id', auth()->user()->selected_account)
-            ->sum('amount'); // Asumo que el campo se llama 'monto'
+            ->sum('amount');
     }
-    public static function montoPrestamoActual()
-    {
-        $mesActual = date('n'); // Obtiene el número del mes actual (1-12)
-        $anioActual = date('Y'); // Obtiene el año actual
 
-        return DB::table('loans') // Asumo que tu tabla se llama 'egresos'
-            ->whereMonth('created_at', $mesActual) // Filtra por mes actual
-            ->whereYear('created_at', $anioActual) // Filtra por año actual
+    public function montoPrestamoActual()
+    {
+        $mesActual = date('n'); // Mes actual
+        $anioActual = date('Y'); // Año actual
+
+        return DB::table('loans')
+            ->whereRaw('EXTRACT(MONTH FROM created_at) = ?', [$mesActual])
+            ->whereRaw('EXTRACT(YEAR FROM created_at) = ?', [$anioActual])
             ->where('status', 0)
             ->where('account_id', auth()->user()->selected_account)
-            ->sum('Balance'); // Asumo que el campo se llama 'monto'
+            ->sum('Balance');
     }
     public static function montoTotalAccountInt()
     {
@@ -116,6 +154,57 @@ class DashboardController extends Controller
             ->where('id', $cuentaId)
             ->sum('amount');
     }
+    // public function consultarIngresos()
+    // {
+    //     $fechaInicio = Carbon::now()->subMonths(3)->startOfMonth();
+    //     $fechaFin = Carbon::now()->endOfMonth();
+    //     $account_id = auth()->user()->selected_account;
+
+    //     $ingresos = DB::table('incomes')
+    //         ->where('status', 0)
+    //         ->where('account_id', $account_id)
+    //         ->whereBetween('created_at', [$fechaInicio, $fechaFin])
+    //         ->select(DB::raw('MONTH(created_at) as mes, SUM(amount) as total'))
+    //         ->groupBy('mes')
+    //         ->orderBy('mes')
+    //         ->pluck('total', 'mes'); // Pluck devuelve un array clave (mes) => valor (total)
+    //     return $this->llenarMesesFaltantes($ingresos);
+    // }
+
+    // public function consultarEgresos()
+    // {
+    //     $fechaInicio = Carbon::now()->subMonths(3)->startOfMonth();
+    //     $fechaFin = Carbon::now()->endOfMonth();
+    //     $account_id = auth()->user()->selected_account;
+
+    //     $egresos = DB::table('expenses')
+    //         ->where('status', 0)
+    //         ->where('account_id', $account_id)
+    //         ->whereBetween('created_at', [$fechaInicio, $fechaFin])
+    //         ->select(DB::raw('MONTH(created_at) as mes, SUM(amount) as total'))
+    //         ->groupBy('mes')
+    //         ->orderBy('mes')
+    //         ->pluck('total', 'mes'); 
+
+    //     return $this->llenarMesesFaltantes($egresos);
+    // }
+    // public function consultarPrestamo()
+    // {
+    //     $fechaInicio = Carbon::now()->subMonths(3)->startOfMonth();
+    //     $fechaFin = Carbon::now()->endOfMonth();
+    //     $account_id = auth()->user()->selected_account;
+
+    //     $prestamos = DB::table('loans')
+    //         ->where('status', 0)
+    //         ->where('account_id', $account_id)
+    //         ->whereBetween('created_at', [$fechaInicio, $fechaFin])
+    //         ->select(DB::raw('MONTH(created_at) as mes, SUM(Balance) as total'))
+    //         ->groupBy('mes')
+    //         ->orderBy('mes')
+    //         ->pluck('total', 'mes'); 
+
+    //     return $this->llenarMesesFaltantes($prestamos);
+    // }
     public function consultarIngresos()
     {
         $fechaInicio = Carbon::now()->subMonths(3)->startOfMonth();
@@ -126,10 +215,11 @@ class DashboardController extends Controller
             ->where('status', 0)
             ->where('account_id', $account_id)
             ->whereBetween('created_at', [$fechaInicio, $fechaFin])
-            ->select(DB::raw('MONTH(created_at) as mes, SUM(amount) as total'))
+            ->select(DB::raw('EXTRACT(MONTH FROM created_at) as mes, SUM(amount) as total'))
             ->groupBy('mes')
             ->orderBy('mes')
-            ->pluck('total', 'mes'); // Pluck devuelve un array clave (mes) => valor (total)
+            ->pluck('total', 'mes');
+
         return $this->llenarMesesFaltantes($ingresos);
     }
 
@@ -143,13 +233,14 @@ class DashboardController extends Controller
             ->where('status', 0)
             ->where('account_id', $account_id)
             ->whereBetween('created_at', [$fechaInicio, $fechaFin])
-            ->select(DB::raw('MONTH(created_at) as mes, SUM(amount) as total'))
+            ->select(DB::raw('EXTRACT(MONTH FROM created_at) as mes, SUM(amount) as total'))
             ->groupBy('mes')
             ->orderBy('mes')
-            ->pluck('total', 'mes'); 
+            ->pluck('total', 'mes');
 
         return $this->llenarMesesFaltantes($egresos);
     }
+
     public function consultarPrestamo()
     {
         $fechaInicio = Carbon::now()->subMonths(3)->startOfMonth();
@@ -160,10 +251,10 @@ class DashboardController extends Controller
             ->where('status', 0)
             ->where('account_id', $account_id)
             ->whereBetween('created_at', [$fechaInicio, $fechaFin])
-            ->select(DB::raw('MONTH(created_at) as mes, SUM(Balance) as total'))
+            ->select(DB::raw('EXTRACT(MONTH FROM created_at) as mes, SUM(Balance) as total'))
             ->groupBy('mes')
             ->orderBy('mes')
-            ->pluck('total', 'mes'); 
+            ->pluck('total', 'mes');
 
         return $this->llenarMesesFaltantes($prestamos);
     }
