@@ -60,7 +60,7 @@ class DashboardController extends Controller
                 return $query->where('status', $status);
             })
             ->where('account_id', $cuentaId) // Filtra por la cuenta del usuario
-            ->sum('Balance');
+            ->sum("Balance");
     }
     public function montoIngresoTotal($status = 'activo')
     {
@@ -145,7 +145,7 @@ class DashboardController extends Controller
             ->whereRaw('EXTRACT(YEAR FROM created_at) = ?', [$anioActual])
             ->where('status', 0)
             ->where('account_id', auth()->user()->selected_account)
-            ->sum('Balance');
+            ->sum("Balance");
     }
     public static function montoTotalAccountInt()
     {
@@ -251,7 +251,7 @@ class DashboardController extends Controller
             ->where('status', 0)
             ->where('account_id', $account_id)
             ->whereBetween('created_at', [$fechaInicio, $fechaFin])
-            ->select(DB::raw('EXTRACT(MONTH FROM created_at) as mes, SUM(Balance) as total'))
+            ->select(DB::raw('EXTRACT(MONTH FROM created_at) as mes, SUM("Balance") as total'))
             ->groupBy('mes')
             ->orderBy('mes')
             ->pluck('total', 'mes');
