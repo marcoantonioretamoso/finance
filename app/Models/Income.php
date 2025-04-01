@@ -18,13 +18,13 @@ class Income extends Model
     ];
     const ACTIVO = 0;
     const ELIMINADO = 1;
-    public static function listView(Request $request = null){
+    public static function listView(?Request $request = null){
         $request = $request ?? request();
         $incomes = self::listadoGeneral($request); // Cambiamos a $incomes
         return view('admin.income.table', compact('incomes'))->render();
     }
 
-    public static function getIncomes(Request $request=null){
+    public static function getIncomes(?Request $request=null){
         $request = $request ?? request();
         return self::listadoGeneral($request);
     }

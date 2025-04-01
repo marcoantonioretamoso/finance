@@ -17,13 +17,13 @@ class Expense extends Model
     ];
     const ACTIVO = 0;
     const ELIMINADO = 1;
-    public static function listView(Request $request = null){
+    public static function listView(?Request $request = null){
         $request = $request ?? request();
         $expenses = self::listadoGeneral($request); // Cambiamos a $incomes
         return view('admin.expense.table', compact('expenses'))->render();
     }
 
-    public static function getExpenses(Request $request=null){
+    public static function getExpenses(?Request $request=null){
         $request = $request ?? request();
         return self::listadoGeneral($request);
     }
