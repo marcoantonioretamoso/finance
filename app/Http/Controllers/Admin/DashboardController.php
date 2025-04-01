@@ -30,12 +30,6 @@ class DashboardController extends Controller
         $montoEgresoTotal = self::montoEgresoTotal();
         $montoTotalPrestamo  = self::montoPrestamoTotal();
         $montoTotalAcumulado = self::montoTotalAccountInt() + $montoIngresoTotal - $montoEgresoTotal - $montoTotalPrestamo;
-        dd([
-            'montoTotalAcumulado' => $montoTotalAcumulado,
-            'montoIngresoActual' => $montoIngresoActual,
-            'montoEgresoActual' => $montoEgresoActual,
-            'montoPrestamoActual' => $montoPrestamoActual,
-        ]);
         return response()->json(
             [
                 'codigo' => 0, 
