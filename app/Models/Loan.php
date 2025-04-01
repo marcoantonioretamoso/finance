@@ -20,13 +20,13 @@ class Loan extends Model
     ];
     const ACTIVO = 0;
     const ELIMINADO = 1;
-    public static function listView(Request $request = null){
+    public static function listView(?Request $request = null){
         $request = $request ?? request();
         $loans = self::listadoGeneral($request); // Cambiamos a $incomes
         return view('admin.loan.table', compact('loans'))->render();
     }
 
-    public static function getLoans(Request $request=null){
+    public static function getLoans(?Request $request=null){
         $request = $request ?? request();
         return self::listadoGeneral($request);
     }
