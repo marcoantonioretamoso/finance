@@ -39,7 +39,7 @@ class Income extends Model
                 ->orWhere('monto', 'like', "%$buscador%");
             });
         }
-
+        $query->where('account_id', auth()->user()->selected_account);
         return $query->paginate(10);
     }
 
