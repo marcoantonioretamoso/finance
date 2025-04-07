@@ -16,15 +16,15 @@ class CreateAccountPruebaSeeder extends Seeder
     {
         if(!Account::where('name', 'Ahorro Prueba')->exists()){
             Account::create([
-                'id' => 5,
+                'id' => 7,
                 'name' => 'Ahorro Prueba',
                 'description' => 'Cuenta de prueba',
                 'amount' => 100,
             ]);
             UsuarioAccount::create([
-                'id' => 5,
+                'id' => 7,
                 'user_id' => 1,
-                'account_id' => 5
+                'account_id' => 7
             ]);
         }
     }
