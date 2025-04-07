@@ -14,17 +14,17 @@ class CreateAccountPruebaSeeder extends Seeder
      */
     public function run(): void
     {
-        if(!Account::where('name', 'Ahorro Prueba')->exists()){
+        if(!Account::where('name', 'Ahorro prueba marck')->exists()){
             Account::create([
-                'id' => 7,
-                'name' => 'Ahorro Prueba',
-                'description' => 'Cuenta de prueba',
-                'amount' => 100,
+                'id' => 9,
+                'name' => 'Ahorro prueba marck',
+                'description' => 'Cuenta de prueba marck',
+                'amount' => 0,
             ]);
             UsuarioAccount::create([
-                'id' => 7,
+                'id' => 9,
                 'user_id' => 1,
-                'account_id' => 7
+                'account_id' => 9
             ]);
         }
     }
