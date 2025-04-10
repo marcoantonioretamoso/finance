@@ -11,6 +11,7 @@
                         <th >Descripcion</th>
                         <th >Monto</th>
                         <th >Monto deuda</th>
+                        <th >Fecha</th>
                         <th class="text-end">Opciones</th>
                     </tr>
                 </thead>
@@ -23,6 +24,7 @@
                             <td>{{ $loan->description }}</td>
                             <td>{{ $loan->amount }}</td>
                             <td>{{ $loan->Balance }}</td>
+                            <td>{{ \Carbon\Carbon::parse($loan->created_at)->translatedFormat('l d/m/Y') }}</td>
                             <td class="text-end">
                                     <a onclick="paymentLoan(`{{ $loan->id }}`, `{{ $loan->description }}`, `{{ $loan->amount }}`)"class="btn btn-icon btn-flex btn-active-light-primary w-30px h-30px me-3"
                                         data-bs-toggle="tooltip" title="" data-kt-action="product_remove"

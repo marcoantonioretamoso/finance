@@ -10,6 +10,7 @@
                         <th>#</th>
                         <th >Descripcion</th>
                         <th >Monto</th>
+                        <th >Fecha</th>
                         <th class="text-end">Opciones</th>
                     </tr>
                 </thead>
@@ -21,6 +22,7 @@
                             <td>{{ $expense->id }}</td>
                             <td>{{ $expense->description }}</td>
                             <td>{{ $expense->amount }}</td>
+                            <td>{{ \Carbon\Carbon::parse($expense->created_at)->translatedFormat('l d/m/Y') }}</td>
                             <td class="text-end">
                                     <a onclick="editExpenses(`{{ $expense->id }}`, `{{ $expense->description }}`, `{{ $expense->amount }}`)"class="btn btn-icon btn-flex btn-active-light-primary w-30px h-30px me-3"
                                         data-bs-toggle="tooltip" title="" data-kt-action="product_remove"

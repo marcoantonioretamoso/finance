@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Account;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 
@@ -21,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Carbon::setLocale('es');
         view()->composer('admin.layouts.app', function($view)
         {
             if(Auth::check()){
