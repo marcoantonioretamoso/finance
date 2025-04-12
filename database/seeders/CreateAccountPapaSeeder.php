@@ -16,15 +16,15 @@ class CreateAccountPapaSeeder extends Seeder
     {
         if(!Account::where('name', 'Cuenta papá')->exists()){
             Account::create([
-                'id' => 9,
+                'id' => 12,
                 'name' => 'Cuenta papá',
                 'description' => 'Cuenta de papa',
                 'amount' => 0,
             ]);
             UsuarioAccount::create([
-                'id' => 10,
+                'id' => 15,
                 'user_id' => 1,
-                'account_id' => 9
+                'account_id' => 12
             ]);
         }
     }
