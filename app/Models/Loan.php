@@ -42,7 +42,7 @@ class Loan extends Model
             });
         }
         $query->where('account_id', auth()->user()->selected_account);
-        return $query->paginate(10);
+        return $query->paginate(100);
     }
 
     public static function storeLoan($request){
