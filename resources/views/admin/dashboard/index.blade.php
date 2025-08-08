@@ -191,27 +191,6 @@
 
 @section('content')
     <!--begin::Row-->
-    {{-- <div class="row gy-5 g-xl-8" style="margin-bottom: 20px">
-        <!--begin::Col-->
-        <div class="col-xl-12">
-            <!--begin::Mixed Widget 2-->
-            <div class="card card-xl-stretch" style=" min-height: 450px; color: #000">
-                <!--begin::Header-->
-                <div class="card-header border-0  py-5">
-                    <h3 class="card-title fw-bolder"><i class="fa-solid fa-suitcase" style="margin-right: 10px; color: #000;"></i> Ingresos y egresos</h3>
-                </div>
-                <!--end::Header-->
-                <!--begin::Body-->
-                <div class="card-body p-0 d-flex justify-content-center align-items-center text-center">
-                        <div id="chartIngresosEgresos" style="height: 350px; width: 90%"></div>
-                    <!--end::Chart-->
-                </div>
-
-                <!--end::Body-->
-            </div>
-            <!--end::Mixed Widget 2-->
-        </div>
-    </div> --}}
     <div class="row gy-5 g-xl-8" style="margin-bottom: 20px">
     <!-- Card Ingresos -->
     <div class="col-xl-3">
