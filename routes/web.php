@@ -50,7 +50,6 @@ Route::group(['prefix' => 'admin'], function () {
             // Route::get('/', [LoanController::class, 'index'])->name('loans.index');
             Route::post('/store', [PaymentController::class, 'store'])->name('loans.store');
             // Route::post('/update/{id}', [LoanController::class, 'update'])->name('loans.update');
-            // Route::post('/destroy/{id}', [LoanController::class, 'destroy'])->name('loans.destroy');
         });
         Route::group(['prefix' => 'loans'], function () {
             Route::get('/', [LoanController::class, 'index'])->name('loans.index');
