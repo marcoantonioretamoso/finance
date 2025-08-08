@@ -32,7 +32,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::middleware(['auth'])->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('index');
         Route::get('/consultar-graficas-dashboard', [DashboardController::class, 'consultarGraficas'])->name('consultar-graficas-dashboard');
-        //incomes
+        //incomes comments
         Route::group(['prefix' => 'incomes'], function () {
             Route::get('/', [IncomeController::class, 'index'])->name('incomes.index');
             Route::post('/store', [IncomeController::class, 'store'])->name('incomes.store');
